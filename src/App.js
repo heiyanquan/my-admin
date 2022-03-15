@@ -1,13 +1,17 @@
+import React, { useEffect } from 'react';
+import Routers from './router';
+import ComHeader from 'components/Header'
 import './App.css';
 
-function App() {
+function App(props) {
+
+  useEffect(() => {
+  }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-      </header>
+      <ComHeader title="产业大数据" />
+      <Routers />
     </div>
   );
 }

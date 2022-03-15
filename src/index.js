@@ -1,12 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import { ConfigProvider } from 'antd'
+import zhCN from 'antd/lib/locale/zh_CN'
+import moment from 'moment';
+import 'moment/locale/zh-cn';
+import 'antd/dist/antd.min.css';
+import { Provider } from 'react-redux';
+import createStore from './store';
 import App from './App';
+import './index.css';
 import reportWebVitals from './reportWebVitals';
+
+moment.locale('zh-cn');
+const createHistory = require('history').createBrowserHistory
+const history = createHistory()
+const store = createStore();
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ConfigProvider locale={zhCN}>
+      <Provider history={history} store={store}>
+        <App />
+      </Provider>
+    </ConfigProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
