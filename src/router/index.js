@@ -1,14 +1,14 @@
 import React from 'react';
-import {HashRouter, Route, Routes} from 'react-router-dom';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
 import HomeView from 'views/Home/Home';
 
 const RoutesInfo = () => (
-	<HashRouter>
+	<BrowserRouter>
     <Routes>
-      <Route exact path="/" component={HomeView} />
-      <Route path="/home" component={HomeView} />
+      <Route exact path="/" element={<HomeView/>} />
+      <Route path="/home" element={<HomeView/>} />
     </Routes>
-	</HashRouter>
+	</BrowserRouter>
 );
 export default RoutesInfo;

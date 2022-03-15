@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Routers from './router';
 import ComHeader from 'components/Header/Header'
-import './App.css';
+import './App.less';
 
 function App(props) {
 

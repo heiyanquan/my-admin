@@ -8,7 +8,7 @@ import 'antd/dist/antd.min.css';
 import { Provider } from 'react-redux';
 import createStore from './store';
 import App from './App';
-import './index.css';
+import './index.less';
 import reportWebVitals from './reportWebVitals';
 
 moment.locale('zh-cn');
