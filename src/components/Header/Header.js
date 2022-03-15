@@ -6,7 +6,6 @@ function HeaderView(title) {
   }, [])
   return (
     <div className="page_common_part">
-      header
     </div>
   )
 }
