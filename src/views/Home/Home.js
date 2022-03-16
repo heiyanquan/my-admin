@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { loadMap } from 'assets/js/map'
-import './style.less'
+import './style.scss'
 
 function HomePage (props) {
   useEffect(() => {

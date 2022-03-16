@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import './style.less'
+import './style.scss'
 
 function HeaderView(title) {
   useEffect(() => {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './style.less'
+import './style.scss'
 
 function IndustryPage (props) {
 
