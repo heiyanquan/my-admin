@@ -8,7 +8,7 @@ function HomePage (props) {
   }, [])
   return (
     <div className="home_box">
-      <div className='map_box' id='mapContainer' style={{ height: '800px' }}></div>
+      <div className='map_box' id='mapContainer'></div>
     </div>
   );
 }
