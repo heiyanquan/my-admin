@@ -1,10 +1,41 @@
-import { forwardRef, useImperativeHandle } from "react";
+const circleRuleId = {
+  park: {
+    unit: '个',
+    name: '园区'
+  },
+  base: {
+    unit: '个',
+    name: '基地'
+  },
+  colony: {
+    unit: '个',
+    name: '集群'
+  },
+  Matching: {
+    unit: '个',
+    name: '创新资源'
+  },
+  company: {
+    unit: '家',
+    name: '企业'
+  },
+  project: {
+    unit: '个',
+    name: '项目'
+  },
+  building: {
+    unit: '家',
+    name: '楼宇'
+  }
+}
 
-function useGaode(props, ref) {
+function useGaode({ currentCircleLevel }) {
   let map
   let AMap
   let districtExplorer = {}
   let currentAreaNode
+  let markerList = []
+  const parkType = 'park'
 
   // 绘制某个区域的边界
   function renderAreaPolygons(areaNode) {
@@ -163,14 +194,60 @@ function useGaode(props, ref) {
         console.error(e); //加载错误提示
       });
   }
+  // 圆圈
+  function drawMapCircle(list) {
+    const { unit } = circleRuleId[parkType]
+    if (markerList) {
+      map && map.remove(markerList)
+    }
+    markerList = []
+    for (let i = 0; i < list.length; i += 1) {
+      const item = list[i]
+      let showName = item.address_city
+      if (currentCircleLevel === 'district') {
+        showName = item.address_area || item.address_city
+      }
+      const markerContent = `<div class="amap_cluster">
+        <span class="showName">${showName}</span>
+        <span class="showCount">${item.num}${unit}</span>
+      </div>`
+      let position
+      if (Array.isArray(item.lnglat)) {
+        position = item.lnglat
+      }
+      if (item.lng_lat) {
+        position = item.lng_lat.split(',')
+      }
+      const marker = new AMap.Marker({
+        position,
+        content: markerContent,
+        cursor: 'pointer',
+        clickable: true,
+        zIndex: 100,
+        offset: new AMap.Pixel(-40, -40)
+      })
+      marker.item = item
+      markerList.push(marker)
+      marker.on('mouseover', () => {
+        marker.setzIndex(110)
+      })
+      marker.on('mouseout', () => {
+        marker.setzIndex(100)
+      })
+    }
+    map.add(markerList)
+  }
 
-  useImperativeHandle(ref, () => ({
+
+  return {
+    map,
+    districtExplorer,
+    currentAreaNode,
     loadMap,
     initMap,
     switch2AreaNode,
-  }));
-
-  return <div className='map_box' id='mapContainer'></div>
+    drawMapCircle,
+  }
 }
 
-export default forwardRef(useGaode)
+export default useGaode

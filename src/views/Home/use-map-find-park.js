@@ -1,4 +1,5 @@
 import { inxGeneral, inxGeneralDetail } from 'api/index'
+import useGaode from './map'
 
 const circleModuleId = 'AHCYDT0002'
 const circleRuleId = {
@@ -97,6 +98,17 @@ const circleRuleId = {
 
 export default function useMapFindPark() {
   const currentRuleIdInfor = circleRuleId.park
+  const currentCircleLevel = 'city'
+  const {
+    map,
+    districtExplorer,
+    currentAreaNode,
+    loadMap,
+    switch2AreaNode,
+    drawMapCircle,
+    // drawMapLastMarker,
+  } = useGaode({ currentCircleLevel })
+
   // 市级
   async function getIndexCluster() {
     let rule_id = currentRuleIdInfor.city
@@ -112,6 +124,7 @@ export default function useMapFindPark() {
         page_size: itemInfor.value,
         start_date: itemInfor.start_date
       }).then((res2) => {
+        drawMapCircle(res2.list)
         return res2.list
       })
     })
@@ -162,6 +175,11 @@ export default function useMapFindPark() {
   }
 
   return {
+    map,
+    districtExplorer,
+    currentAreaNode,
+    loadMap,
+    switch2AreaNode,
     getIndexCluster,
     callLastMarkerData,
     callMapDistrictData,
