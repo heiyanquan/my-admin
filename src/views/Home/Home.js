@@ -1,14 +1,22 @@
-import { useEffect } from 'react';
-import { loadMap } from 'assets/js/map'
+import { useEffect, useRef } from 'react';
+import { Button } from 'antd'
+import GaodeView from './map'
 import './style.scss'
 
 function HomePage (props) {
+  const gaodeRef = useRef(null)
+
+  const btnEvent = () => {
+  }
+
   useEffect(() => {
-    loadMap()
+    console.log(11, gaodeRef.current);
+    gaodeRef.current.loadMap()
   }, [])
   return (
     <div className="home_box">
-      <div className='map_box' id='mapContainer'></div>
+      <Button onClick={() => btnEvent()} type="primary">Primary Button</Button>
+      <GaodeView ref={gaodeRef} />
     </div>
   );
 }
