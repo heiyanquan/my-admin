@@ -1,21 +1,22 @@
 import { useEffect, useRef } from 'react';
-import { Button } from 'antd'
 import GaodeView from './map'
 import './style.scss'
+import useSelectData from './use-select-data'
+import useMapFindPark from './use-map-find-park'
 
 function HomePage (props) {
   const gaodeRef = useRef(null)
-
-  const btnEvent = () => {
-  }
+  const { cityNameCodeList, districtNameCodeList } = useSelectData()
+  const { getIndexCluster } = useMapFindPark()
 
   useEffect(() => {
-    console.log(11, gaodeRef.current);
     gaodeRef.current.loadMap()
+    getIndexCluster().then(res => {
+      console.log(11, res);
+    })
   }, [])
   return (
     <div className="home_box">
-      <Button onClick={() => btnEvent()} type="primary">Primary Button</Button>
       <GaodeView ref={gaodeRef} />
     </div>
   );
