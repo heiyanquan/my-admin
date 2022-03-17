@@ -172,6 +172,7 @@ function useGaode({ currentCircleLevel }) {
     await fillAreaBgColor();
   }
   async function loadMap() {
+    const start = window.performance.now()
     return window.AMapLoader.load({
       key: "60fdb942e15dfeefff0d5595c58a8de3", // 申请好的Web端开发者Key，首次调用 load 时必填
       version: "2.0", // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
@@ -187,6 +188,8 @@ function useGaode({ currentCircleLevel }) {
       },
     })
       .then((originAMap) => {
+        const renderTime = `${(window.performance.now() - start).toFixed(2)}ms`
+        console.log(renderTime);
         AMap = originAMap
         return initMap();
       })

@@ -1,16 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Routers from './router';
-import ComHeader from 'components/Header/Header'
 import './App.scss';
 
 function App(props) {
-
-  useEffect(() => {
-  }, [])
-
   return (
     <div className="App">
-      <ComHeader title="产业大数据" />
       <Routers />
     </div>
   );

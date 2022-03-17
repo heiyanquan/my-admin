@@ -1,0 +1,17 @@
+.navigation_page_wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  div {
+    width: 200px;
+    height: 200px;
+    text-align: center;
+    color: white;
+    font-size: 30px;
+    margin-left: 20px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+}
