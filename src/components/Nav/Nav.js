@@ -5,6 +5,7 @@ import './style.scss'
 function NavView() {
   const navList = [
     { label: 'home', path: '/home' },
+    { label: 'form', path: '/form' },
   ]
   const colorList = [
     '#46A0FF',
