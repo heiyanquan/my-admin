@@ -1,21 +1,23 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import "./style.scss";
-import useSelectData from "./use-select-data";
-import useMapFindPark from "./use-map-find-park";
+import useGaode from "./useGaode";
 
 function HomePage(props) {
-  const { cityNameCodeList, districtNameCodeList } = useSelectData();
-  const { loadMap, getIndexCluster } = useMapFindPark();
-
-  useEffect(() => {
-    loadMap().then(() => {
-      getIndexCluster().then((res) => {
-        console.log(11, res);
-      });
+  const useGaodeObj = useGaode();
+  const { initMap, map } = useGaodeObj
+  const callMap = useCallback(() => {
+    initMap('mapContainer1', {
+      center: [116.978275, 31.870612],
+      zoom: 9
     })
-  }, []);
+  }, [initMap])
+  console.log(11, map);
+  useEffect(() => {
+    callMap()
+    console.log(22, useGaodeObj);
+  }, [callMap, useGaodeObj]);
   return <div className="home_box">
-    <div className='map_box' id='mapContainer'></div>
+    <div className='map_box' id='mapContainer1'></div>
   </div>;
 }
 

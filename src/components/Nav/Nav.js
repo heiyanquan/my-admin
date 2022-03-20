@@ -6,6 +6,7 @@ function NavView() {
   const navList = [
     { label: 'home', path: '/home' },
     { label: 'form', path: '/form' },
+    { label: 'memo', path: '/memo' },
   ]
   const colorList = [
     '#46A0FF',
