@@ -1,6 +1,8 @@
-export default function useGaode(props = {}) {
+import { forwardRef, useImperativeHandle } from "react"
+
+function useGaode(props = {}, ref) {
   let map = null
-  let districtExplorer = (null)
+  let districtExplorer = null
   let heatMap = null
   let mapLoca = null
   let currentAreaNode = null
@@ -10,25 +12,25 @@ export default function useGaode(props = {}) {
   const markerList = []
   let areaFeatureList = []
   const colorList = props.colorList || [
-    '#3366cc',
-    '#dc3912',
-    '#ff9900',
-    '#109618',
-    '#990099',
-    '#0099c6',
-    '#dd4477',
-    '#3578D4',
-    '#b82e2e',
-    '#82B7FF',
-    '#994499',
-    '#22aa99',
-    '#aaaa11',
-    '#6633cc',
-    '#e67300',
-    '#69A8FF',
-    '#9CC6FF',
-    '#5574a6',
-    '#3b3eac'
+    "#3366cc",
+    "#dc3912",
+    "#ff9900",
+    "#109618",
+    "#990099",
+    "#0099c6",
+    "#dd4477",
+    "#3578D4",
+    "#b82e2e",
+    "#82B7FF",
+    "#994499",
+    "#22aa99",
+    "#aaaa11",
+    "#6633cc",
+    "#e67300",
+    "#69A8FF",
+    "#9CC6FF",
+    "#5574a6",
+    "#3b3eac",
   ]
 
   // 加载区域
@@ -48,8 +50,8 @@ export default function useGaode(props = {}) {
   // 3d地图所需要的数据
   function PolygonLayerDataSet(arr) {
     const data = {
-      type: 'FeatureCollection',
-      features: [...arr._data.geoData.lngLatSubList]
+      type: "FeatureCollection",
+      features: [...arr._data.geoData.lngLatSubList],
     }
     return data
   }
@@ -62,32 +64,32 @@ export default function useGaode(props = {}) {
     // 设置地图的数据
     const data = PolygonLayerDataSet(areaNode)
     const geo = new window.Loca.GeoJSONSource({
-      data
+      data,
     })
     boundPolygonLayer = new window.Loca.PolygonLayer({
       zIndex: 20,
       opacity: 1,
-      cullface: 'none',
+      cullface: "none",
       shininess: 10,
-      hasSide: true
+      hasSide: true,
     })
     boundPolygonLayer.setSource(geo)
     // 样式
     boundPolygonLayer.setStyle({
       topColor() {
-        return '#00366A'
+        return "#00366A"
       },
       sideTopColor() {
-        return '#00366A'
+        return "#00366A"
       },
       sideBottomColor() {
-        return '#076DA4'
+        return "#076DA4"
       },
       // 地图厚度
       height() {
         return cityhight
       },
-      altitude: 0 - cityhight // 地图偏移量
+      altitude: 0 - cityhight, // 地图偏移量
       // 地图侧边贴图
       // texture: mapSidePng
     })
@@ -106,37 +108,37 @@ export default function useGaode(props = {}) {
 
     const {
       geometry: {
-        coordinates: [[boundCoords]]
+        coordinates: [[boundCoords]],
       },
-      properties
+      properties,
     } = parentFeature
     // 创建线图层需要的数据
     const data = new window.Loca.GeoJSONSource({
       data: {
-        type: 'FeatureCollection',
+        type: "FeatureCollection",
         features: [
           {
-            type: 'Feature',
+            type: "Feature",
             properties,
             geometry: {
-              type: 'LineString',
-              coordinates: boundCoords
-            }
-          }
-        ]
-      }
+              type: "LineString",
+              coordinates: boundCoords,
+            },
+          },
+        ],
+      },
     })
     const boundTmpLinelayer = new window.Loca.LineLayer({
       loca: mapLoca,
-      zIndex: 10
+      zIndex: 10,
     })
     boundTmpLinelayer.setSource(data)
     // 样式
     boundTmpLinelayer.setStyle({
-      color: '#bad5f0',
+      color: "#bad5f0",
       lineWidth: 3,
       altitude,
-      ...styleobj
+      ...styleobj,
     })
     return boundTmpLinelayer
   }
@@ -149,7 +151,7 @@ export default function useGaode(props = {}) {
     // 创建loca容器
     if (!mapLoca) {
       mapLoca = new window.Loca.Container({
-        map: map
+        map: map,
       })
     }
     // 每次进来先清除
@@ -166,9 +168,9 @@ export default function useGaode(props = {}) {
     boundLinelayer = setboundLinelayer(areaNode, {})
     // 线图层二
     boundLinelayer2 = setboundLinelayer(areaNode, {
-      color: '#6fd4fe',
+      color: "#6fd4fe",
       lineWidth: 5,
-      altitude: 0 - cityhight
+      altitude: 0 - cityhight,
     })
     // 3d图层
     boundPolygonLayer = setboundPolygonLayer(areaNode, cityhight)
@@ -178,24 +180,24 @@ export default function useGaode(props = {}) {
     heatMap = new window.AMap.HeatMap(map, {
       radius: dataSet.length > 1000 ? 10 : 20, // 给定半径
       opacity: [0, 1],
-      '3d': {
-        heightScale: dataSet.length > 1000 ? 0.2 : 0.5
+      "3d": {
+        heightScale: dataSet.length > 1000 ? 0.2 : 0.5,
       },
       gradient: {
-        0: 'rgba(81,204,255,1)',
-        0.3: 'rgba(48,210,0,1)',
-        0.7: 'rgba(228,196,17,1)',
-        0.9: 'rgba(254,129,0,1)',
-        1.0: 'rgba(255,0,0,1)'
+        0: "rgba(81,204,255,1)",
+        0.3: "rgba(48,210,0,1)",
+        0.7: "rgba(228,196,17,1)",
+        0.9: "rgba(254,129,0,1)",
+        1.0: "rgba(255,0,0,1)",
       },
       zIndex: 10000,
-      ...heatOptions
+      ...heatOptions,
     })
     heatMap.setDataSet({
       data: dataSet,
       zoom: 100,
       max: 10,
-      ...setOptions
+      ...setOptions,
     })
   }
   // 清除热力图
@@ -204,7 +206,7 @@ export default function useGaode(props = {}) {
       heatMap.setDataSet({
         data: [],
         zoom: 100,
-        max: 10
+        max: 10,
       })
       heatMap = null
     }
@@ -219,7 +221,7 @@ export default function useGaode(props = {}) {
         position: center,
         offset: new window.AMap.Pixel(-10, -10),
         content: `<div class="marker_text">${name}</div>`,
-        ...markerOptions
+        ...markerOptions,
       })
       map.add(marker)
       markerList.push(marker)
@@ -239,25 +241,25 @@ export default function useGaode(props = {}) {
         fillColor = classifyColor(feature, i, areaNode)
       }
       return {
-        cursor: 'pointer',
+        cursor: "pointer",
         bubble: true,
         fillColor,
         fillOpacity: 0.4,
-        strokeColor: 'rgba(0, 145, 234, 0.1)', // 线颜色
+        strokeColor: "rgba(0, 145, 234, 0.1)", // 线颜色
         strokeOpacity: 1, // 线透明度
         strokeWeight: 1, // 线宽
-        ...suboptions
+        ...suboptions,
       }
     })
     // 绘制父区域
     districtExplorer.renderParentFeature(areaNode, {
-      cursor: 'pointer',
+      cursor: "pointer",
       bubble: true,
-      strokeColor: '#51CCFF', // 线颜色
+      strokeColor: "#51CCFF", // 线颜色
       strokeOpacity: 1, // 线透明度
       strokeWeight: 0.7, // 线宽
-      fillColor: !areaNode._data.geoData.sub ? 'rgba(128,216,252,0.1)' : null,
-      ...parentOptions
+      fillColor: !areaNode._data.geoData.sub ? "rgba(128,216,252,0.1)" : null,
+      ...parentOptions,
     })
   }
   // 切换区域后刷新显示内容
@@ -286,22 +288,22 @@ export default function useGaode(props = {}) {
   // 加载AMapUI，初始化districtExplorer
   async function initDistrictExplorer() {
     return new Promise((resolve) => {
-      window.AMapUI.load(['ui/geo/DistrictExplorer', 'lib/$'], (DistrictExplorer) => {
+      window.AMapUI.load(["ui/geo/DistrictExplorer", "lib/$"], (DistrictExplorer) => {
         // 创建一个实例
         districtExplorer = new DistrictExplorer({
           eventSupport: true,
-          map
+          map,
         })
         resolve()
       })
     })
   }
-  async function initMap(dom = 'mapContainer', options = {}) {
+  async function initMap(dom = "mapContainer", options = {}) {
     map = new window.AMap.Map(dom, options)
     await initDistrictExplorer()
   }
 
-  return {
+  useImperativeHandle(ref, () => ({
     map,
     districtExplorer,
     initMap,
@@ -309,6 +311,10 @@ export default function useGaode(props = {}) {
     initHeatMapLayer,
     clearHeatMapLayer,
     render3DLayer,
-    showAdministrativeRegionName
-  }
+    showAdministrativeRegionName,
+  }))
+
+  return <div className="map_box" id="mapContainer1"></div>
 }
+
+export default forwardRef(useGaode)

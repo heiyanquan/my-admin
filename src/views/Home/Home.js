@@ -1,24 +1,27 @@
-import { useCallback, useEffect } from "react";
-import "./style.scss";
-import useGaode from "./useGaode";
+import { useRef, useEffect } from "react"
+import "./style.scss"
+import GaodeView from "./useGaode"
 
 function HomePage(props) {
-  const useGaodeObj = useGaode();
-  const { initMap, map } = useGaodeObj
-  const callMap = useCallback(() => {
-    initMap('mapContainer1', {
-      center: [116.978275, 31.870612],
-      zoom: 9
-    })
-  }, [initMap])
-  console.log(11, map);
+  const gaodeRef = useRef(null)
+
   useEffect(() => {
-    callMap()
-    console.log(22, useGaodeObj);
-  }, [callMap, useGaodeObj]);
-  return <div className="home_box">
-    <div className='map_box' id='mapContainer1'></div>
-  </div>;
+    const init = async () => {
+      await gaodeRef.current.initMap("mapContainer1", {
+        center: [116.978275, 31.870612],
+        zoom: 9,
+      })
+      await gaodeRef.current.switch2AreaNode(100000)
+      // 显示行政区域名称
+      gaodeRef.current.showAdministrativeRegionName(100000)
+    }
+    init()
+  }, [])
+  return (
+    <div className="home_box">
+      <GaodeView ref={gaodeRef} />
+    </div>
+  )
 }
 
-export default HomePage;
+export default HomePage

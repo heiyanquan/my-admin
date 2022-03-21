@@ -2,85 +2,8 @@
   .map_box{
     height: 100vh;
   }
-  .amap_cluster {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    width: 80px;
-    height: 80px;
-    background: rgba(#4293f4, 0.9);
-    box-shadow: 0px 2px 2px 0px rgba(159, 159, 159, 0.5);
-    border-radius: 50%;
-    color: #fff;
-    z-index: 100;
-    &:hover {
-      background: rgba(#ee3930, 0.9);
-      z-index: 200;
-    }
-  }
-  .amap_cluster_marker {
-    border: none;
-    border-radius: 30px;
-    margin: 0;
-    white-space: nowrap;
-    padding: 5px 10px;
-    background: #1492ff;
-    color: #fff;
-    z-index: 100;
-    &::before {
-      content: '';
-      position: absolute;
-      border: 6px solid #1492ff;
-      border-color: #1492ff transparent transparent;
-      width: 0;
-      height: 0;
-      bottom: -12px;
-      left: 50%;
-      margin-left: -6px;
-    }
-    &:hover {
-      background: #ee3930;
-      z-index: 200;
-      &::before {
-        border: 6px solid #ee3930;
-        border-color: #ee3930 transparent transparent;
-      }
-    }
-  }
-  .amap_active_cluster_marker {
-    background: #ee3930;
-    z-index: 200;
-    &::before {
-      border: 6px solid #ee3930;
-      border-color: #ee3930 transparent transparent;
-    }
-  }
-  .showName {
-    font-size: 14px;
-    line-height: 14px;
-    margin-bottom: 6px;
-  }
-  .showCount,
-  .showName {
-    display: block;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    width: 80%;
-  }
-  .showPark,
-  .showCount {
-    font-size: 14px;
-    color: #ffffff;
-    line-height: 14px;
-    margin-bottom: 10px;
-  }
-  .showCount {
-    margin-bottom: 0px;
-  }
-  .amap-copyright {
-    box-sizing: content-box;
+  .marker_text {
+    width: max-content;
+    font-size: 12px;
   }
 }
