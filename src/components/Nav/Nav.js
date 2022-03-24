@@ -6,6 +6,9 @@ function NavView() {
   const navList = [
     { label: "填充、区名称", path: "/home" },
     { label: "填充、下钻", path: "/areaSwitch" },
+    { label: "自定义颜色", path: "/customColor" },
+    { label: "hover事件", path: "/customHover" },
+    { label: "3D地图", path: "/custom3D" },
     { label: "form", path: "/form" },
     { label: "memo", path: "/memo" },
   ]
