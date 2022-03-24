@@ -9,6 +9,7 @@ function NavView() {
     { label: "自定义颜色", path: "/customColor" },
     { label: "hover事件", path: "/customHover" },
     { label: "3D地图", path: "/custom3D" },
+    { label: "热力图", path: "/heatmap" },
     { label: "form", path: "/form" },
     { label: "memo", path: "/memo" },
   ]

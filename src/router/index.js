@@ -8,6 +8,7 @@ import AreaSwitch from "views/AreaSwitch/AreaSwitch"
 import CustomColor from "views/CustomColor/CustomColor"
 import CustomHover from "views/CustomHover/CustomHover"
 import Custom3D from "views/Custom3D/Custom3D"
+import Heatmap from "views/Heatmap/Heatmap"
 
 const RoutesInfo = () => (
   <BrowserRouter>
@@ -20,6 +21,7 @@ const RoutesInfo = () => (
       <Route path="/customColor" element={<CustomColor />} />
       <Route path="/customHover" element={<CustomHover />} />
       <Route path="/custom3D" element={<Custom3D />} />
+      <Route path="/heatmap" element={<Heatmap />} />
     </Routes>
   </BrowserRouter>
 )
