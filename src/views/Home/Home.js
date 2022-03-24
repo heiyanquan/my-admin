@@ -1,25 +1,26 @@
 import { useRef, useEffect } from "react"
 import "./style.scss"
-import GaodeView from "./useGaode"
+import GlobalGaode from "utils/useGaode";
 
 function HomePage(props) {
-  const gaodeRef = useRef(null)
+  const mapInstance = useRef(null);
 
   useEffect(() => {
     const init = async () => {
-      await gaodeRef.current.initMap("mapContainer1", {
+      mapInstance.current = new GlobalGaode({});
+      await mapInstance.current.initMap("mapContainer1", {
         center: [116.978275, 31.870612],
         zoom: 9,
       })
-      await gaodeRef.current.switch2AreaNode(100000)
+      await mapInstance.current.switch2AreaNode(100000)
       // 显示行政区域名称
-      gaodeRef.current.showAdministrativeRegionName(100000)
+      mapInstance.current.showAdministrativeRegionName(100000)
     }
     init()
   }, [])
   return (
     <div className="home_box">
-      <GaodeView ref={gaodeRef} />
+      <div className="map_box" id="mapContainer1"></div>
     </div>
   )
 }

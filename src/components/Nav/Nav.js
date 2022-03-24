@@ -4,8 +4,8 @@ import "./style.scss"
 
 function NavView() {
   const navList = [
-    { label: "home", path: "/home" },
-    { label: "areaSwitch", path: "/areaSwitch" },
+    { label: "填充、区名称", path: "/home" },
+    { label: "填充、下钻", path: "/areaSwitch" },
     { label: "form", path: "/form" },
     { label: "memo", path: "/memo" },
   ]

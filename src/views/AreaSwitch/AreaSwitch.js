@@ -1,18 +1,17 @@
 import { useEffect, useRef } from "react";
 import "./style.scss";
-import GlobalGaode from "./useGaode";
+import GlobalGaode from "utils/useGaode";
 
 function HomePage(props) {
   const mapInstance = useRef(null);
   useEffect(() => {
-    const fetchData = async () => {
+    const init = async () => {
       mapInstance.current = new GlobalGaode({});
       await mapInstance.current.initMap("mapContainer1", {
         center: [116.978275, 31.870612],
         zoom: 9,
       });
       await mapInstance.current.switch2AreaNode(100000)
-      console.log(mapInstance.current);
       if (mapInstance.current.districtExplorer) {
         // 监听feature的点击事件
         mapInstance.current.districtExplorer.on('featureClick', (e, feature) => {
@@ -25,7 +24,7 @@ function HomePage(props) {
         })
       }
     };
-    fetchData()
+    init()
   }, []);
 
   return (
